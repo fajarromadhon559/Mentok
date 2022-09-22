@@ -2,10 +2,7 @@ package com.example.githubuserapp.API_Network
 import com.example.githubuserapp.Response.PersonRespons
 import com.example.githubuserapp.Response.SearchRespons
 import retrofit2.Call
-import retrofit2.http.GET
-import retrofit2.http.Headers
-import retrofit2.http.Path
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface ApiService {
 
@@ -17,7 +14,7 @@ interface ApiService {
     @Headers("Authorization: token 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")
     suspend fun getPersonDetail(
         @Path("username") username : String
-    ) : PersonRespons
+    ) : Call<PersonRespons>
 
     @GET("users/{username}/followers")
     @Headers("Authorization: token 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")
@@ -32,9 +29,9 @@ interface ApiService {
     ) : ArrayList<PersonRespons>
 
     @GET("search/users")
-    @Headers("Authorization: token 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")
     fun getSearchPerson(
-        @Query("q") query: String
+        @Query("q") query: String,
+        @Header("Authorization") token : String
     ) : Call<SearchRespons>
 
     companion object {

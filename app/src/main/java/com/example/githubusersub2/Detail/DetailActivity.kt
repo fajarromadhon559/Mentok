@@ -9,10 +9,8 @@ import androidx.activity.viewModels
 import androidx.annotation.StringRes
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.example.githubuserapp.Adapter.SectionsPagerAdapter
 import com.example.githubuserapp.Response.PersonRespons
-import com.example.githubusersub2.FragmentContainer
-import com.example.githubusersub2.MainViewModel
+import com.example.githubusersub2.Fragment.FragmentContainer
 import com.example.githubusersub2.R
 import com.example.githubusersub2.databinding.ActivityDetailBinding
 
