@@ -8,25 +8,25 @@ interface ApiService {
 
     @GET("users")
     @Headers("Authorization: token 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")
-    suspend fun getPersonList() : ArrayList<PersonRespons>
+    fun getPersonList() : Call<List<PersonRespons>>
 
-    @GET("users/{username}")
+    @GET("users/{login}")
     @Headers("Authorization: token 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")
     suspend fun getPersonDetail(
         @Path("username") username : String
     ) : Call<PersonRespons>
 
-    @GET("users/{username}/followers")
+    @GET("users/followers")
     @Headers("Authorization: token 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")
-    suspend fun getPersonFollowers(
+    fun getPersonFollowers(
         @Path("username") username : String
-    ) : ArrayList<PersonRespons>
+    ) : Call<ArrayList<PersonRespons>>
 
-    @GET("users/{username}/following")
+    @GET("users/following")
     @Headers("Authorization: token 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")
-    suspend fun getPersonFollowing(
+    fun getPersonFollowing(
         @Path("username") username : String
-    ) : ArrayList<PersonRespons>
+    ) : Call<ArrayList<PersonRespons>>
 
     @GET("search/users")
     fun getSearchPerson(

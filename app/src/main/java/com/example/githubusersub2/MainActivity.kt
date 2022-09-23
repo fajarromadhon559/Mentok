@@ -10,16 +10,20 @@ import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.githubuserapp.API_Network.ApiConfig
 import com.example.githubuserapp.Adapter.OnItemClickCallback
 import com.example.githubuserapp.Response.PersonRespons
 import com.example.githubusersub2.Adapter.ListPersonAdapter
 import com.example.githubusersub2.Detail.DetailActivity
 import com.example.githubusersub2.databinding.ActivityMainBinding
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding : ActivityMainBinding
     private val adapter: ListPersonAdapter by lazy {
-        ListPersonAdapter()
+        ListPersonAdapter(list = ArrayList())
     }
     private val mainViewModel by viewModels<MainViewModel>()
 
@@ -28,6 +32,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         showProgresBar(true)
+        getPersonList()
     }
 
     private fun showProgresBar(isLoading : Boolean){
@@ -81,5 +86,41 @@ class MainActivity : AppCompatActivity() {
             }
         })
         return true
+    }
+
+    private fun getPersonList(){
+        showProgresBar(true)
+        val client = ApiConfig.getApiService(this).getPersonList()
+        client.enqueue(object : Callback<List<PersonRespons>>{
+            override fun onResponse(
+                call: Call<List<PersonRespons>>,
+                response: Response<List<PersonRespons>>
+            ) {
+                showProgresBar(false)
+                if(response.isSuccessful){
+                    val responseBody = response.body()
+                    if (responseBody != null){
+                        setListData(responseBody)
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<List<PersonRespons>>, t: Throwable) {
+                showProgresBar(false)
+            }
+        })
+    }
+
+    private fun setListData(listDataPerson: List<PersonRespons>) {
+        val list = ArrayList<String>()
+        for (data in listDataPerson) {
+            list.add(
+                """
+                    ${data.login}
+                    """.trimIndent()
+            )
+        }
+        val adapter = ListPersonAdapter(list)
+        binding.rvPerson.adapter = adapter
     }
 }

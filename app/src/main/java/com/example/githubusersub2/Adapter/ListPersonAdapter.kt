@@ -11,7 +11,7 @@ import com.example.githubuserapp.Response.PersonRespons
 import com.example.githubusersub2.R
 import com.example.githubusersub2.databinding.ItemRowPersonBinding
 
-class ListPersonAdapter : RecyclerView.Adapter<ListPersonAdapter.MyViewHolder>() {
+class ListPersonAdapter(val list: ArrayList<String>) : RecyclerView.Adapter<ListPersonAdapter.MyViewHolder>() {
 
     private var listPersonResponse = ArrayList<PersonRespons>()
     private lateinit var onItemClickCallback: OnItemClickCallback

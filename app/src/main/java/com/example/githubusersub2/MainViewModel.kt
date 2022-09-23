@@ -15,6 +15,8 @@ import retrofit2.Response
 import javax.security.auth.callback.Callback
 
 class MainViewModel : ViewModel() {
+    private val _person = MutableLiveData<ArrayList<PersonRespons>?>()
+    val person: LiveData<ArrayList<PersonRespons>?> = _person
     private val _searchPerson = MutableLiveData<ArrayList<PersonRespons>?>()
     val searchPerson : LiveData<ArrayList<PersonRespons>?> = _searchPerson
     private val _loading = MutableLiveData<Boolean>()

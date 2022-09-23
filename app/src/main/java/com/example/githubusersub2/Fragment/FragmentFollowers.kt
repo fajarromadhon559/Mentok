@@ -8,12 +8,15 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.githubuserapp.API_Network.ApiConfig
+import com.example.githubuserapp.Response.PersonRespons
 import com.example.githubusersub2.Adapter.FollowerAdapter
 import com.example.githubusersub2.R
 import com.example.githubusersub2.databinding.FragmentFollowersBinding
 import com.loopj.android.http.AsyncHttpClient
 import com.loopj.android.http.AsyncHttpResponseHandler
 import org.json.JSONObject
+import retrofit2.Callback
 import retrofit2.http.Header
 
 
@@ -35,14 +38,11 @@ class FragmentFollowers : Fragment() {
         getPersonFollowers(this)
     }
 
-    private fun getPersonFollowers(fragmentFollowers : FragmentFollowers){
+    private fun getPersonFollowers(username : String,fragmentFollowers : FragmentFollowers){
 
         fragmentFollowers.binding.progressBar.visibility = View.VISIBLE
-        val client = AsyncHttpClient()
-        val url = "https://api.github.com/users/{username}/followers"
-        client.addHeader("Authorization", "token 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")
-        client.addHeader("User-Agent", "request")
-        client.get(url, object : AsyncHttpResponseHandler(){
+        val client = ApiConfig.getApiService().getPersonFollowers(username)
+        client.enqueue(object : Callback<ArrayList<PersonRespons>>{
 
             override fun onSuccess(
                 statusCode: Int,
