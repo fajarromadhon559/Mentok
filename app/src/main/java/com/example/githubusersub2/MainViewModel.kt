@@ -1,6 +1,7 @@
 package com.example.githubusersub2
 
 import android.content.ContentValues.TAG
+import android.content.Context
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -20,17 +21,18 @@ class MainViewModel : ViewModel() {
     private val _DataFailed = MutableLiveData<Boolean>()
     private var viewModelJob = Job()
 
-    fun getSearchPerson(person : String){
+    fun getSearchPerson(context: Context, person : String){
         _loading.value = true
-        val client = ApiConfig.getApiService().getSearchPerson(person)
+        val token = "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"
+        val client = ApiConfig.getApiService(context).getSearchPerson(person, token)
         client.enqueue(object : retrofit2.Callback<SearchRespons> {
             override fun onResponse(call: Call<SearchRespons>, response: Response<SearchRespons>) {
                 if (response.isSuccessful){
                     _loading.value = false
-                    val responseBody = response.body()
+                    val responseBody = response.body()?.items
                     if (responseBody != null){
-                        if (responseBody.item != null){
-                            _searchPerson.postValue(responseBody.item)
+                        if (responseBody != null){
+                            _searchPerson.postValue(responseBody)
                         }
                     }
                 }

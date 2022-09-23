@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">GitHubUser(Sub2)</string>
+    <string name="app_name">GitHubUserApp</string>
     <string name="Username" translatable="false">Username</string>
     <string name="Name" translatable="false">Name</string>
     <string name="search_hint">Masukkan Username</string>

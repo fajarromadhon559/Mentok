@@ -9,5 +9,5 @@ data class SearchRespons (
         @SerializedName("incompleteResult")
         val incompleteResult :Boolean,
 
-        val item : ArrayList<PersonRespons>?
+        val items : ArrayList<PersonRespons>?
         )

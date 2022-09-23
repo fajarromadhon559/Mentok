@@ -7,12 +7,17 @@ import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
 import androidx.annotation.StringRes
+import androidx.lifecycle.ViewModelProvider
+import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.example.githubuserapp.Adapter.SectionsPagerAdapter
 import com.example.githubuserapp.Response.PersonRespons
 import com.example.githubusersub2.Fragment.FragmentContainer
 import com.example.githubusersub2.R
 import com.example.githubusersub2.databinding.ActivityDetailBinding
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 
 class DetailActivity : AppCompatActivity() {
     private lateinit var binding : ActivityDetailBinding
@@ -30,67 +35,26 @@ class DetailActivity : AppCompatActivity() {
                 .commit()
         }
         showProgresBar(true)
-
+//        viewPager()
     }
 
-    private fun setTabLayout(personRespons: PersonRespons?){
-        if (personRespons != null){
-            with(binding){
-                detailLayout.visibility = View.VISIBLE
-                imgUser.visibility = View.VISIBLE
-                Glide.with(root)
-                    .load(personRespons.avatarUrl)
-                    .apply {
-                        RequestOptions.placeholderOf(R.drawable.ic_baseline_refresh_24)
-                            .error(R.drawable.ic_baseline_broken_image_24)
-                    }
-                    .circleCrop()
-                    .into(binding.imgUser)
-                tvDetailUsername.visibility = View.VISIBLE
-                tvDetailUsername.text = personRespons.login
-                tvDetailName.visibility = View.VISIBLE
-                tvDetailName.text = personRespons.name
-                if(personRespons.company != null){
-                    tvDetailCompany.visibility = View.VISIBLE
-                    tvDetailCompany.text = personRespons.company
-                }else{
-                    tvDetailCompany.visibility = View.GONE
-                }
-                if(personRespons.company != null){
-                    tvDetailCompany.visibility = View.VISIBLE
-                    tvDetailCompany.text = personRespons.company
-                }else{
-                    tvDetailCompany.visibility = View.GONE
-                }
-                if(personRespons.location != null){
-                    tvDetailLocation.visibility = View.VISIBLE
-                    tvDetailLocation.text = personRespons.company
-                }else{
-                    tvDetailLocation.visibility = View.GONE
-                }
-                if(personRespons.publicRepo != null){
-                    tvDetailRepo.visibility = View.VISIBLE
-                    tvDetailRepo.text = personRespons.company
-                }else{
-                    tvDetailRepo.visibility = View.GONE
-                }
-                if(personRespons.followers != null){
-                    tvDetailFollower.visibility = View.VISIBLE
-                    tvDetailFollower.text = personRespons.company
-                }else{
-                    tvDetailFollower.visibility = View.GONE
-                }
-                if(personRespons.following != null){
-                    tvDetailFollowing.visibility = View.VISIBLE
-                    tvDetailFollowing.text = personRespons.company
-                }else{
-                    tvDetailFollowing.visibility = View.GONE
-                }
-            }
-        }
-    }
+//    private fun viewPager(){
+//        val username = intent.getStringExtra(EXTRA_PERSON)
+//        val bundle = Bundle()
+//        val sectionsPagerAdapter = SectionsPagerAdapter(fragment = FragmentContainer())
+//        bundle.putString(EXTRA_PERSON, username)
+//        val viewPager: ViewPager2 = binding.fragmentContainer.findViewById(R.id.view_pager)
+//        viewPager.adapter = sectionsPagerAdapter
+//        val tabs: TabLayout = binding.fragmentContainer.findViewById(R.id.tabs)
+//        TabLayoutMediator(tabs, viewPager) { tab, position ->
+//            tab.text = resources.getString(TAB_TITLES[position])
+//        }.attach()
+//        supportActionBar?.elevation = 0f
+//    }
 
     private fun dataSet(personRespons: PersonRespons?) {
+//        val username = intent.getStringExtra(EXTRA_PERSON)
+//        val viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(DetailViewModel::class.java)
         if (personRespons != null) {
             with(binding) {
                 detailLayout.visibility = View.VISIBLE

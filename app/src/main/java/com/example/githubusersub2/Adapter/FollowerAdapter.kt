@@ -11,7 +11,7 @@ import com.example.githubuserapp.Response.PersonRespons
 import com.example.githubusersub2.R
 import com.example.githubusersub2.databinding.ItemRowFollowBinding
 
-class FollowerAdapter : RecyclerView.Adapter<FollowerAdapter.MyViewHolder>(){
+class FollowerAdapter(private val listFollower: ArrayList<String>) : RecyclerView.Adapter<FollowerAdapter.MyViewHolder>(){
     private var listPersonResponse = ArrayList<PersonRespons>()
     private lateinit var onItemClickCallback: OnItemClickCallback
 

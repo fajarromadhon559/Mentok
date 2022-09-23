@@ -50,7 +50,7 @@ class MainActivity : AppCompatActivity() {
         searchView.queryHint = resources.getString(R.string.search_hint)
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
-                mainViewModel.getSearchPerson(query)
+                mainViewModel.getSearchPerson(this@MainActivity, query)
                 mainViewModel.searchPerson.observe(this@MainActivity){ searchPersonResponse ->
                     if (searchPersonResponse != null){
                         adapter.addDataList(searchPersonResponse)
@@ -66,12 +66,6 @@ class MainActivity : AppCompatActivity() {
                 return false
             }
 
-            private fun hideUserList() {
-                binding.rvPerson.layoutManager = null
-                binding.rvPerson.adapter = null
-            }
-
-
             private fun setPersonData() {
                 val layoutManager = LinearLayoutManager(this@MainActivity, LinearLayoutManager.VERTICAL, false)
                 binding.rvPerson.layoutManager = layoutManager
@@ -79,7 +73,6 @@ class MainActivity : AppCompatActivity() {
                 binding.rvPerson.adapter = adapter
                 adapter.setOnItemClickCallback(object : OnItemClickCallback {
                     override fun onItemClicked(person: PersonRespons) {
-                        hideUserList()
                         val i = Intent(this@MainActivity, DetailActivity::class.java)
                         i.putExtra(DetailActivity.EXTRA_PERSON, person)
                         startActivity(i)
