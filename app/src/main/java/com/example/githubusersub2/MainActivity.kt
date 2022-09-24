@@ -3,42 +3,58 @@ package com.example.githubusersub2
 import android.app.SearchManager
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.View
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.githubuserapp.API_Network.ApiConfig
 import com.example.githubuserapp.Adapter.OnItemClickCallback
 import com.example.githubuserapp.Response.PersonRespons
 import com.example.githubusersub2.Adapter.ListPersonAdapter
 import com.example.githubusersub2.Detail.DetailActivity
 import com.example.githubusersub2.databinding.ActivityMainBinding
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var binding : ActivityMainBinding
-    private val adapter: ListPersonAdapter by lazy {
-        ListPersonAdapter(ArrayList())
+
+    private val binding: ActivityMainBinding by lazy {
+        ActivityMainBinding.inflate(layoutInflater)
     }
+
     private val mainViewModel by viewModels<MainViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        showProgresBar(true)
-        getPersonList()
+        if (savedInstanceState == null) {
+            mainViewModel.getPersonList(this)
+        }
+        initObserver()
     }
 
-    private fun showProgresBar(isLoading : Boolean){
-        if (isLoading){
+    private fun initObserver() {
+        mainViewModel.apply {
+            loading.observe(this@MainActivity) {
+                showProgressBar(it)
+            }
+
+            person.observe(this@MainActivity) {
+                if (it != null) {
+                    setPersonData(it)
+                }
+            }
+
+            error.observe(this@MainActivity) {
+
+            }
+        }
+    }
+
+    private fun showProgressBar(isLoading: Boolean) {
+        if (isLoading) {
             binding.progressBar.visibility = View.VISIBLE
-        }else{
+        } else {
             binding.progressBar.visibility = View.GONE
         }
     }
@@ -56,13 +72,6 @@ class MainActivity : AppCompatActivity() {
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
                 mainViewModel.getSearchPerson(this@MainActivity, query)
-                mainViewModel.searchPerson.observe(this@MainActivity){ searchPersonResponse ->
-                    if (searchPersonResponse != null){
-                        adapter.addDataList(searchPersonResponse)
-                        setPersonData()
-                    }
-
-                }
                 searchView.clearFocus()
                 return true
             }
@@ -71,56 +80,29 @@ class MainActivity : AppCompatActivity() {
                 return false
             }
 
-            private fun setPersonData() {
-                val layoutManager = LinearLayoutManager(this@MainActivity, LinearLayoutManager.VERTICAL, false)
-                binding.rvPerson.layoutManager = layoutManager
-                binding.rvPerson.setHasFixedSize(true)
-                binding.rvPerson.adapter = adapter
-                adapter.setOnItemClickCallback(object : OnItemClickCallback {
-                    override fun onItemClicked(person: PersonRespons) {
-                        val i = Intent(this@MainActivity, DetailActivity::class.java)
-                        i.putExtra(DetailActivity.EXTRA_PERSON, person)
-                        startActivity(i)
-                    }
-                })
-            }
         })
         return true
     }
 
-    private fun getPersonList(){
-        showProgresBar(true)
-        val client = ApiConfig.getApiService(this).getPersonList()
-        client.enqueue(object : Callback<List<PersonRespons>>{
-            override fun onResponse(
-                call: Call<List<PersonRespons>>,
-                response: Response<List<PersonRespons>>
-            ) {
-                showProgresBar(false)
-                if(response.isSuccessful){
-                    val responseBody = response.body()
-                    if (responseBody != null){
-                        setListData(responseBody)
-                    }
+    private fun setPersonData(data: ArrayList<PersonRespons>) {
+        binding.rvPerson.apply {
+            val linearLayoutManager =
+                LinearLayoutManager(this@MainActivity, LinearLayoutManager.VERTICAL, false)
+            layoutManager = linearLayoutManager
+            setHasFixedSize(true)
+
+            val rvAdapter = ListPersonAdapter()
+            rvAdapter.addDataList(data)
+            rvAdapter.setOnItemClickCallback(object : OnItemClickCallback {
+                override fun onItemClicked(person: PersonRespons) {
+                    val i = Intent(this@MainActivity, DetailActivity::class.java)
+                    i.putExtra(DetailActivity.EXTRA_PERSON, person)
+                    startActivity(i)
                 }
-            }
+            })
 
-            override fun onFailure(call: Call<List<PersonRespons>>, t: Throwable) {
-                showProgresBar(false)
-            }
-        })
-    }
-
-    private fun setListData(listDataPerson: List<PersonRespons>) {
-        val list = ArrayList<String>()
-        for (data in listDataPerson) {
-            list.add(
-                """
-                    ${data.login}
-                    """.trimIndent()
-            )
+            adapter = rvAdapter
         }
-        val adapter = ListPersonAdapter(list)
-        binding.rvPerson.adapter = adapter
     }
+
 }
