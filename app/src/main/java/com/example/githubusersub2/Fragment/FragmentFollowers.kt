@@ -61,7 +61,7 @@ class FragmentFollowers : Fragment() {
                         val followes_url = dataObject.getString("followes_url")
                         listPersonFollower.add("\nUsername : $username\nFollowers URL : $followes_url\n")
                     }
-                    val adapter = FollowerAdapter(listPersonFollower)
+                    val adapter = FollowerAdapter()
                     fragmentFollowers.binding.rvFollowers.adapter = adapter
                     fragmentFollowers.layoutManager = LinearLayoutManager(fragmentFollowers.activity)
                 }

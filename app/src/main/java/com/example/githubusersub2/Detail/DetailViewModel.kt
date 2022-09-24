@@ -18,7 +18,7 @@ class DetailViewModel : ViewModel() {
     private val _detailDataFailed = MutableLiveData<Boolean>()
     private var viewModelJob = Job()
 
-    fun getDetailPerson(context: Context, username : String){
+    fun SetDetailPerson(context: Context, username : String){
         _detailLoading.value = true
         val client = ApiConfig.getApiService(context).getPersonDetail(username)
 

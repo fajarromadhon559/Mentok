@@ -1,6 +1,7 @@
 package com.example.githubusersub2.Detail
 
 import android.content.ContentValues
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -11,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.example.githubuserapp.API_Network.ApiConfig
 import com.example.githubuserapp.Adapter.SectionsPagerAdapter
 import com.example.githubuserapp.Response.PersonRespons
 import com.example.githubusersub2.Fragment.FragmentContainer
@@ -36,12 +38,13 @@ class DetailActivity : AppCompatActivity() {
         }
         showProgresBar(true)
         viewPager()
+        dataSet()
     }
 
     private fun viewPager(){
         val username = intent.getStringExtra(EXTRA_PERSON)
         val bundle = Bundle()
-        val sectionsPagerAdapter = SectionsPagerAdapter(fragment = FragmentContainer())
+        val sectionsPagerAdapter = SectionsPagerAdapter(bundle, FragmentContainer())
         bundle.putString(EXTRA_PERSON, username)
         val viewPager: ViewPager2 = binding.fragmentContainer.findViewById(R.id.view_pager)
         viewPager.adapter = sectionsPagerAdapter
@@ -50,61 +53,32 @@ class DetailActivity : AppCompatActivity() {
             tab.text = resources.getString(TAB_TITLES[position])
         }.attach()
         supportActionBar?.elevation = 0f
+
     }
 
-    private fun dataSet(personRespons: PersonRespons?) {
-//        val username = intent.getStringExtra(EXTRA_PERSON)
-//        val viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(DetailViewModel::class.java)
-        if (personRespons != null) {
-            with(binding) {
-                detailLayout.visibility = View.VISIBLE
-                imgUser.visibility = View.VISIBLE
-                Glide.with(root)
-                    .load(personRespons.avatarUrl)
-                    .apply(
-                        RequestOptions.placeholderOf(R.drawable.ic_baseline_refresh_24)
-                            .error(R.drawable.ic_baseline_broken_image_24)
-                    )
-                    .circleCrop()
-                    .into(binding.imgUser)
-                tvDetailUsername.visibility = View.VISIBLE
-                tvDetailName.visibility = View.VISIBLE
-                tvDetailUsername.text = personRespons.login
-                tvDetailName.text = personRespons.name
-                if (personRespons.company != null) {
-                    tvDetailCompany.visibility = View.VISIBLE
-                    tvDetailCompany.text = personRespons.company
-                } else {
-                    tvDetailCompany.visibility = View.GONE
-                }
-                if (personRespons.location != null) {
-                    tvDetailLocation.visibility = View.VISIBLE
-                    tvDetailLocation.text = personRespons.location
-                } else {
-                    tvDetailLocation.visibility = View.GONE
-                }
-                if (personRespons.publicRepo != null) {
-                    tvDetailRepo.visibility = View.VISIBLE
-                    tvDetailRepo.text = personRespons.location
-                } else {
-                    tvDetailRepo.visibility = View.GONE
-                }
-                if (personRespons.followers != null) {
-                    tvDetailFollower.visibility = View.VISIBLE
-                    tvDetailFollower.text = personRespons.location
-                } else {
-                    tvDetailFollower.visibility = View.GONE
-                }
-                if (personRespons.following != null) {
-                    tvDetailFollowing.visibility = View.VISIBLE
-                    tvDetailFollowing.text = personRespons.location
-                } else {
-                    tvDetailFollowing.visibility = View.GONE
-                }
-            }
-        } else {
-            Log.i(ContentValues.TAG, "Set data is eror")
+    private fun dataSet() {
+        val username = intent.getStringExtra(EXTRA_PERSON)
+        val viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(DetailViewModel::class.java)
+
+        if(username != null){
+            viewModel.SetDetailPerson(this,username)
         }
+        viewModel.detailPerson.observe(this, {
+            if (it != null){
+                Glide.with(this@DetailActivity)
+                    .load(it.avatarUrl)
+                    .centerCrop()
+                    .into(binding.imgUser)
+                binding.tvDetailUsername.text = it.login
+                binding.tvDetailName.text = it.name
+                binding.tvDetailCompany.text = it.company
+                binding.tvDetailFollower.text = it.followers
+                binding.tvDetailFollowing.text = it.following
+                binding.tvDetailLocation.text = it.location
+                binding.tvDetailRepo.text = it.publicRepo
+            }
+        })
+
     }
 
     private fun showProgresBar(isLoading : Boolean){

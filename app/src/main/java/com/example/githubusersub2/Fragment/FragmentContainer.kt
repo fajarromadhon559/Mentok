@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
+import androidx.fragment.app.FragmentContainer
 import com.example.githubuserapp.Adapter.SectionsPagerAdapter
 import com.example.githubusersub2.databinding.FragmentContainerBinding
 import com.google.android.material.tabs.TabLayoutMediator
@@ -24,7 +26,7 @@ class FragmentContainer : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        sectionsPagerAdapter = SectionsPagerAdapter(this)
+        sectionsPagerAdapter = SectionsPagerAdapter(data = Bundle(), fragment = com.example.githubusersub2.Fragment.FragmentContainer())
 
         with(binding){
             viewPager.adapter = sectionsPagerAdapter

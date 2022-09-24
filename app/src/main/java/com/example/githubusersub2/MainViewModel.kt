@@ -13,7 +13,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class MainViewModel(private val context: Context) : ViewModel() {
+class MainViewModel() : ViewModel() {
 
     private var _person = MutableLiveData<ArrayList<PersonRespons>?>()
     var person: LiveData<ArrayList<PersonRespons>?> = _person

@@ -7,12 +7,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.githubuserapp.API_Network.ApiConfig
+import com.example.githubuserapp.Response.PersonRespons
 import com.example.githubusersub2.Adapter.FollowerAdapter
 import com.example.githubusersub2.R
 import com.example.githubusersub2.databinding.FragmentFollowingBinding
 import com.loopj.android.http.AsyncHttpClient
 import com.loopj.android.http.AsyncHttpResponseHandler
 import org.json.JSONObject
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 
 class FragmentFollowing : Fragment() {
@@ -30,27 +35,25 @@ class FragmentFollowing : Fragment() {
         binding = FragmentFollowingBinding.inflate(inflater, container, false)
         return binding.root
 
-        getPersonFollowing(this)
+        getPersonFollowing()
     }
 
-    private fun getPersonFollowing(fragmentFollowing : FragmentFollowing){
+    private fun getPersonFollowing(){
 
+        val login = String()
+        val fragmentFollowing = FragmentFollowing()
         fragmentFollowing.binding.progressBar.visibility = View.VISIBLE
-        val client = AsyncHttpClient()
-        val url = "https://api.github.com/users/{username}/following"
-        client.addHeader("Authorization", "token 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")
-        client.addHeader("User-Agent", "request")
-        client.get(url, object : AsyncHttpResponseHandler(){
+        val client = ApiConfig.getApiService(requireActivity()).getPersonFollowing(login)
+        client.enqueue(object : Callback<List<PersonRespons>> {
 
-            override fun onSuccess(
-                statusCode: Int,
-                headers: Array<out cz.msebera.android.httpclient.Header>?,
-                responseBody: ByteArray?
+            override fun onResponse(
+                call: Call<List<PersonRespons>>,
+                response: Response<List<PersonRespons>>
             ) {
                 fragmentFollowing.binding.progressBar.visibility = View.INVISIBLE
 
-                val listPersonFollowing = ArrayList<String>()
-                val result = String(responseBody!!)
+                val listPersonFollower = ArrayList<String>()
+                val result = String()
 
                 try {
                     val jsonObject = JSONObject(result)
@@ -58,10 +61,10 @@ class FragmentFollowing : Fragment() {
                     for (i in 0 until dataArray.length()){
                         val dataObject = dataArray.getJSONObject(i)
                         val username = dataObject.getString("login")
-                        val followes_url = dataObject.getString("following_url")
-                        listPersonFollowing.add("\nUsername : $username\nFollowing URL : $followes_url\n")
+                        val followes_url = dataObject.getString("followes_url")
+                        listPersonFollower.add("\nUsername : $username\nFollowers URL : $followes_url\n")
                     }
-                    val adapter = FollowerAdapter(listPersonFollowing)
+                    val adapter = FollowerAdapter(listPersonFollower)
                     fragmentFollowing.binding.rvFollowing.adapter = adapter
                     fragmentFollowing.layoutManager = LinearLayoutManager(fragmentFollowing.activity)
                 }
@@ -69,14 +72,11 @@ class FragmentFollowing : Fragment() {
                     e.printStackTrace()
                 }
             }
-            override fun onFailure(
-                statusCode: Int,
-                headers: Array<out cz.msebera.android.httpclient.Header>?,
-                responseBody: ByteArray?,
-                error: Throwable?
-            ) {
+
+            override fun onFailure(call: Call<List<PersonRespons>>, t: Throwable) {
                 fragmentFollowing.binding.progressBar.visibility = View.INVISIBLE
             }
+
         })
     }
 }

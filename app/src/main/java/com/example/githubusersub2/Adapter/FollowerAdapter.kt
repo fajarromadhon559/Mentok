@@ -11,12 +11,12 @@ import com.example.githubuserapp.Response.PersonRespons
 import com.example.githubusersub2.R
 import com.example.githubusersub2.databinding.ItemRowFollowBinding
 
-class FollowerAdapter(private val listFollower: ArrayList<String>) : RecyclerView.Adapter<FollowerAdapter.MyViewHolder>(){
+class FollowerAdapter : RecyclerView.Adapter<FollowerAdapter.MyViewHolder>(){
     private var listPersonResponse = ArrayList<PersonRespons>()
     private lateinit var onItemClickCallback: OnItemClickCallback
 
     @SuppressLint("NotifyDataSetChanged")
-    fun addDataList(items: ArrayList<PersonRespons>){
+    fun addDataList(items: List<PersonRespons>){
         listPersonResponse.clear()
         listPersonResponse.addAll(items)
         notifyDataSetChanged()
@@ -45,9 +45,6 @@ class FollowerAdapter(private val listFollower: ArrayList<String>) : RecyclerVie
                 .circleCrop()
                 .into(binding.imgItemPhotoFollows)
         }
-    }
-    fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback){
-        this.onItemClickCallback = onItemClickCallback
     }
 
 }
