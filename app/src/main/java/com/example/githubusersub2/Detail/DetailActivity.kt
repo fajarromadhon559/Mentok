@@ -35,22 +35,22 @@ class DetailActivity : AppCompatActivity() {
                 .commit()
         }
         showProgresBar(true)
-//        viewPager()
+        viewPager()
     }
 
-//    private fun viewPager(){
-//        val username = intent.getStringExtra(EXTRA_PERSON)
-//        val bundle = Bundle()
-//        val sectionsPagerAdapter = SectionsPagerAdapter(fragment = FragmentContainer())
-//        bundle.putString(EXTRA_PERSON, username)
-//        val viewPager: ViewPager2 = binding.fragmentContainer.findViewById(R.id.view_pager)
-//        viewPager.adapter = sectionsPagerAdapter
-//        val tabs: TabLayout = binding.fragmentContainer.findViewById(R.id.tabs)
-//        TabLayoutMediator(tabs, viewPager) { tab, position ->
-//            tab.text = resources.getString(TAB_TITLES[position])
-//        }.attach()
-//        supportActionBar?.elevation = 0f
-//    }
+    private fun viewPager(){
+        val username = intent.getStringExtra(EXTRA_PERSON)
+        val bundle = Bundle()
+        val sectionsPagerAdapter = SectionsPagerAdapter(fragment = FragmentContainer())
+        bundle.putString(EXTRA_PERSON, username)
+        val viewPager: ViewPager2 = binding.fragmentContainer.findViewById(R.id.view_pager)
+        viewPager.adapter = sectionsPagerAdapter
+        val tabs: TabLayout = binding.fragmentContainer.findViewById(R.id.tabs)
+        TabLayoutMediator(tabs, viewPager) { tab, position ->
+            tab.text = resources.getString(TAB_TITLES[position])
+        }.attach()
+        supportActionBar?.elevation = 0f
+    }
 
     private fun dataSet(personRespons: PersonRespons?) {
 //        val username = intent.getStringExtra(EXTRA_PERSON)

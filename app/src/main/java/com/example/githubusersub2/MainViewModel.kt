@@ -1,6 +1,5 @@
 package com.example.githubusersub2
 
-import android.content.ContentValues.TAG
 import android.content.Context
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -12,7 +11,6 @@ import com.example.githubuserapp.Response.SearchRespons
 import kotlinx.coroutines.Job
 import retrofit2.Call
 import retrofit2.Response
-import javax.security.auth.callback.Callback
 
 class MainViewModel : ViewModel() {
     private val _person = MutableLiveData<ArrayList<PersonRespons>?>()
@@ -25,8 +23,7 @@ class MainViewModel : ViewModel() {
 
     fun getSearchPerson(context: Context, person : String){
         _loading.value = true
-        val token = "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"
-        val client = ApiConfig.getApiService(context).getSearchPerson(person, token)
+        val client = ApiConfig.getApiService(context).getSearchPerson(person)
         client.enqueue(object : retrofit2.Callback<SearchRespons> {
             override fun onResponse(call: Call<SearchRespons>, response: Response<SearchRespons>) {
                 if (response.isSuccessful){

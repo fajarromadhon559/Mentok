@@ -23,7 +23,7 @@ import retrofit2.Response
 class MainActivity : AppCompatActivity() {
     private lateinit var binding : ActivityMainBinding
     private val adapter: ListPersonAdapter by lazy {
-        ListPersonAdapter(list = ArrayList())
+        ListPersonAdapter(ArrayList())
     }
     private val mainViewModel by viewModels<MainViewModel>()
 

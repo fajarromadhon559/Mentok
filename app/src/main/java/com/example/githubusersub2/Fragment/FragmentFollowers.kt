@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.githubuserapp.API_Network.ApiConfig
@@ -13,11 +12,10 @@ import com.example.githubuserapp.Response.PersonRespons
 import com.example.githubusersub2.Adapter.FollowerAdapter
 import com.example.githubusersub2.R
 import com.example.githubusersub2.databinding.FragmentFollowersBinding
-import com.loopj.android.http.AsyncHttpClient
-import com.loopj.android.http.AsyncHttpResponseHandler
 import org.json.JSONObject
+import retrofit2.Call
 import retrofit2.Callback
-import retrofit2.http.Header
+import retrofit2.Response
 
 
 class FragmentFollowers : Fragment() {
@@ -35,24 +33,24 @@ class FragmentFollowers : Fragment() {
         binding = FragmentFollowersBinding.inflate(inflater, container, false)
         return binding.root
 
-        getPersonFollowers(this)
+        getPersonFollowers()
     }
 
-    private fun getPersonFollowers(username : String,fragmentFollowers : FragmentFollowers){
-
+    private fun getPersonFollowers(){
+        val login = String()
+        val fragmentFollowers = FragmentFollowers()
         fragmentFollowers.binding.progressBar.visibility = View.VISIBLE
-        val client = ApiConfig.getApiService().getPersonFollowers(username)
-        client.enqueue(object : Callback<ArrayList<PersonRespons>>{
+        val client = ApiConfig.getApiService(requireActivity()).getPersonFollowers(login)
+        client.enqueue(object : Callback<List<PersonRespons>>{
 
-            override fun onSuccess(
-                statusCode: Int,
-                headers: Array<out cz.msebera.android.httpclient.Header>?,
-                responseBody: ByteArray?
+            override fun onResponse(
+                call: Call<List<PersonRespons>>,
+                response: Response<List<PersonRespons>>
             ) {
                 fragmentFollowers.binding.progressBar.visibility = View.INVISIBLE
 
                 val listPersonFollower = ArrayList<String>()
-                val result = String(responseBody!!)
+                val result = String()
 
                 try {
                     val jsonObject = JSONObject(result)
@@ -71,14 +69,11 @@ class FragmentFollowers : Fragment() {
                     e.printStackTrace()
                 }
             }
-            override fun onFailure(
-                statusCode: Int,
-                headers: Array<out cz.msebera.android.httpclient.Header>?,
-                responseBody: ByteArray?,
-                error: Throwable?
-            ) {
+
+            override fun onFailure(call: Call<List<PersonRespons>>, t: Throwable) {
                 fragmentFollowers.binding.progressBar.visibility = View.INVISIBLE
             }
+
         })
     }
 }

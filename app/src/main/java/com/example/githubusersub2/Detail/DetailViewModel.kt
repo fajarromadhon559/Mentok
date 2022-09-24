@@ -7,7 +7,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.githubuserapp.API_Network.ApiConfig
 import com.example.githubuserapp.Response.PersonRespons
-import com.example.githubuserapp.Response.SearchRespons
 import kotlinx.coroutines.Job
 import retrofit2.Call
 import retrofit2.Response
@@ -19,7 +18,7 @@ class DetailViewModel : ViewModel() {
     private val _detailDataFailed = MutableLiveData<Boolean>()
     private var viewModelJob = Job()
 
-    suspend fun getDetailPerson(context: Context, username : String){
+    fun getDetailPerson(context: Context, username : String){
         _detailLoading.value = true
         val client = ApiConfig.getApiService(context).getPersonDetail(username)
 

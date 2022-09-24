@@ -12,26 +12,26 @@ interface ApiService {
 
     @GET("users/{login}")
     @Headers("Authorization: token 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")
-    suspend fun getPersonDetail(
-        @Path("username") username : String
+    fun getPersonDetail(
+        @Path("login") login : String
     ) : Call<PersonRespons>
 
-    @GET("users/followers")
+    @GET("users/{login}/followers")
     @Headers("Authorization: token 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")
     fun getPersonFollowers(
-        @Path("username") username : String
-    ) : Call<ArrayList<PersonRespons>>
+        @Path("login") login : String
+    ) : Call<List<PersonRespons>>
 
-    @GET("users/following")
+    @GET("users/{login}/following")
     @Headers("Authorization: token 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")
     fun getPersonFollowing(
-        @Path("username") username : String
-    ) : Call<ArrayList<PersonRespons>>
+        @Path("login") login : String
+    ) : Call<List<PersonRespons>>
 
     @GET("search/users")
+    @Headers("Authorization: token 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")
     fun getSearchPerson(
-        @Query("q") query: String,
-        @Header("Authorization") token : String
+        @Query("q") query: String
     ) : Call<SearchRespons>
 
     companion object {
