@@ -26,7 +26,7 @@ class FragmentContainer : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        sectionsPagerAdapter = SectionsPagerAdapter(data = Bundle(), fragment = com.example.githubusersub2.Fragment.FragmentContainer())
+        sectionsPagerAdapter = SectionsPagerAdapter(com.example.githubusersub2.Fragment.FragmentContainer())
 
         with(binding){
             viewPager.adapter = sectionsPagerAdapter

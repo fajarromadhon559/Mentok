@@ -23,7 +23,6 @@ import com.google.android.material.tabs.TabLayoutMediator
 
 class DetailActivity : AppCompatActivity() {
     private lateinit var binding : ActivityDetailBinding
-    private val detailViewModel by viewModels<DetailViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,16 +34,16 @@ class DetailActivity : AppCompatActivity() {
             supportFragmentManager.beginTransaction()
                 .add(R.id.fragment_container, fragment, FragmentContainer::class.java.simpleName)
                 .commit()
+            viewPager()
+            dataSet()
         }
-        showProgresBar(true)
-        viewPager()
-        dataSet()
+
     }
 
     private fun viewPager(){
         val username = intent.getStringExtra(EXTRA_PERSON)
         val bundle = Bundle()
-        val sectionsPagerAdapter = SectionsPagerAdapter(bundle, FragmentContainer())
+        val sectionsPagerAdapter = SectionsPagerAdapter(FragmentContainer())
         bundle.putString(EXTRA_PERSON, username)
         val viewPager: ViewPager2 = binding.fragmentContainer.findViewById(R.id.view_pager)
         viewPager.adapter = sectionsPagerAdapter
