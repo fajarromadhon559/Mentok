@@ -14,9 +14,12 @@ import retrofit2.Response
 class DetailViewModel : ViewModel() {
     private val _detailPerson = MutableLiveData<PersonRespons>()
     val detailPerson : LiveData<PersonRespons> = _detailPerson
+
     private val _detailLoading = MutableLiveData<Boolean>()
+    val detailLoading : LiveData<Boolean> = _detailLoading
+
     private val _detailDataFailed = MutableLiveData<Boolean>()
-    private var viewModelJob = Job()
+    val detailDataFailed : LiveData<Boolean> = _detailDataFailed
 
     fun SetDetailPerson(context: Context, username : String){
         _detailLoading.value = true
@@ -44,8 +47,5 @@ class DetailViewModel : ViewModel() {
     companion object{
         private const val TAG = "MainViewModel"
     }
-    override fun onCleared() {
-        super.onCleared()
-        viewModelJob.cancel()
-    }
+
 }
