@@ -13,7 +13,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class MainViewModel() : ViewModel() {
+class MainViewModel : ViewModel() {
 
     private var _person = MutableLiveData<ArrayList<PersonRespons>?>()
     var person: LiveData<ArrayList<PersonRespons>?> = _person
@@ -50,6 +50,30 @@ class MainViewModel() : ViewModel() {
     fun getPersonList(context: Context) {
         _loading.value = true
         val client = ApiConfig.getApiService(context).getPersonList()
+        client.enqueue(object : Callback<List<PersonRespons>> {
+            override fun onResponse(
+                call: Call<List<PersonRespons>>,
+                response: Response<List<PersonRespons>>
+            ) {
+                _loading.value = false
+                if (response.isSuccessful) {
+                    val responseBody = response.body()
+                    if (responseBody != null) {
+                        _person.postValue(responseBody as ArrayList<PersonRespons>?)
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<List<PersonRespons>>, t: Throwable) {
+                _loading.value = false
+                _error.value = true
+            }
+        })
+    }
+
+    fun getPersonFollowers(context: Context, username : String) {
+        _loading.value = true
+        val client = ApiConfig.getApiService(context).getPersonFollowers(username)
         client.enqueue(object : Callback<List<PersonRespons>> {
             override fun onResponse(
                 call: Call<List<PersonRespons>>,
