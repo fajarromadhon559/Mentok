@@ -26,10 +26,10 @@ class FragmentContainer : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        sectionsPagerAdapter = SectionsPagerAdapter(com.example.githubusersub2.Fragment.FragmentContainer())
+        //sectionsPagerAdapter = SectionsPagerAdapter()
 
         with(binding){
-            viewPager.adapter = sectionsPagerAdapter
+            //viewPager.adapter = sectionsPagerAdapter
 
             TabLayoutMediator(tabs, viewPager){tab, position ->
                 when(position){
