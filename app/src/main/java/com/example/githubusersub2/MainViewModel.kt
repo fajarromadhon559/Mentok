@@ -94,6 +94,29 @@ class MainViewModel : ViewModel() {
             }
         })
     }
+    fun getPersonFollowing(context: Context, username : String) {
+        _loading.value = true
+        val client = ApiConfig.getApiService(context).getPersonFollowing(username)
+        client.enqueue(object : Callback<List<PersonRespons>> {
+            override fun onResponse(
+                call: Call<List<PersonRespons>>,
+                response: Response<List<PersonRespons>>
+            ) {
+                _loading.value = false
+                if (response.isSuccessful) {
+                    val responseBody = response.body()
+                    if (responseBody != null) {
+                        _person.postValue(responseBody as ArrayList<PersonRespons>?)
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<List<PersonRespons>>, t: Throwable) {
+                _loading.value = false
+                _error.value = true
+            }
+        })
+    }
 
     companion object {
         private const val TAG = "MainViewModel"

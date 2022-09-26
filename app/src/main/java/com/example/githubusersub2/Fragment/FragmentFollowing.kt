@@ -5,12 +5,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.githubuserapp.API_Network.ApiConfig
 import com.example.githubuserapp.Response.PersonRespons
 import com.example.githubusersub2.Adapter.FollowerAdapter
+import com.example.githubusersub2.MainViewModel
 import com.example.githubusersub2.R
+import com.example.githubusersub2.databinding.FragmentFollowersBinding
 import com.example.githubusersub2.databinding.FragmentFollowingBinding
 import com.loopj.android.http.AsyncHttpClient
 import com.loopj.android.http.AsyncHttpResponseHandler
@@ -23,60 +26,69 @@ import retrofit2.Response
 class FragmentFollowing : Fragment() {
 
     private lateinit var binding : FragmentFollowingBinding
-    private var layoutManager : RecyclerView.LayoutManager?= null
+    private val mainViewModel by viewModels<MainViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_following, container, false)
-
         binding = FragmentFollowingBinding.inflate(inflater, container, false)
         return binding.root
-
-        getPersonFollowing()
     }
 
-    private fun getPersonFollowing(){
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-        val login = String()
-        val fragmentFollowing = FragmentFollowing()
-        fragmentFollowing.binding.progressBar.visibility = View.VISIBLE
-        val client = ApiConfig.getApiService(requireActivity()).getPersonFollowing(login)
-        client.enqueue(object : Callback<List<PersonRespons>> {
+        val person : String? = arguments?.getString(EXTRA_FRAGMENT)
 
-            override fun onResponse(
-                call: Call<List<PersonRespons>>,
-                response: Response<List<PersonRespons>>
-            ) {
-                fragmentFollowing.binding.progressBar.visibility = View.INVISIBLE
+        if (savedInstanceState == null) {
+            mainViewModel.getPersonFollowing(requireActivity(), person.toString())
+        }
+        initObserver()
+    }
 
-                val listPersonFollower = ArrayList<String>()
-                val result = String()
+    private fun initObserver() {
+        mainViewModel.apply {
+            loading.observe(requireActivity()) {
+                showProgressBar(it)
+            }
 
-                try {
-                    val jsonObject = JSONObject(result)
-                    val dataArray = jsonObject.getJSONArray("items")
-                    for (i in 0 until dataArray.length()){
-                        val dataObject = dataArray.getJSONObject(i)
-                        val username = dataObject.getString("login")
-                        val followes_url = dataObject.getString("followes_url")
-                        listPersonFollower.add("\nUsername : $username\nFollowers URL : $followes_url\n")
-                    }
-                    val adapter = FollowerAdapter()
-                    fragmentFollowing.binding.rvFollowing.adapter = adapter
-                    fragmentFollowing.layoutManager = LinearLayoutManager(fragmentFollowing.activity)
-                }
-                catch (e : Exception){
-                    e.printStackTrace()
+            person.observe(requireActivity()) {
+                if (it != null) {
+                    getPersonFollowing(it)
                 }
             }
 
-            override fun onFailure(call: Call<List<PersonRespons>>, t: Throwable) {
-                fragmentFollowing.binding.progressBar.visibility = View.INVISIBLE
-            }
+            error.observe(requireActivity()) {
 
-        })
+            }
+        }
+    }
+
+
+    private fun getPersonFollowing(data: ArrayList<PersonRespons>){
+
+        binding.rvFollowing.apply {
+            val linearLayoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+            layoutManager = linearLayoutManager
+            setHasFixedSize(true)
+            val rvAdapter = FollowerAdapter()
+            rvAdapter.addDataList(data)
+            adapter = rvAdapter
+        }
+
+    }
+
+    private fun showProgressBar(isLoading: Boolean) {
+        if (isLoading) {
+            binding.progressBar.visibility = View.VISIBLE
+        } else {
+            binding.progressBar.visibility = View.GONE
+        }
+    }
+
+    companion object {
+        const val EXTRA_FRAGMENT = "EXTRA_FRAGMENT"
     }
 }

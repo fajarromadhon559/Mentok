@@ -3,7 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/Acer/AndroidStudioProjects/GitHubUserSub2/app/src/main/res/layout/activity_detail.xml" value="0.22826086956521738" />
+        <entry key="..\:/Users/Acer/AndroidStudioProjects/GitHubUserSub2/app/src/main/res/drawable/ic_baseline_book_24.xml" value="0.2105" />
+        <entry key="..\:/Users/Acer/AndroidStudioProjects/GitHubUserSub2/app/src/main/res/drawable/ic_baseline_business_24.xml" value="0.2105" />
+        <entry key="..\:/Users/Acer/AndroidStudioProjects/GitHubUserSub2/app/src/main/res/drawable/ic_baseline_people_24.xml" value="0.2105" />
+        <entry key="..\:/Users/Acer/AndroidStudioProjects/GitHubUserSub2/app/src/main/res/layout/activity_detail.xml" value="0.4" />
         <entry key="..\:/Users/Acer/AndroidStudioProjects/GitHubUserSub2/app/src/main/res/layout/activity_main.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/Acer/AndroidStudioProjects/GitHubUserSub2/app/src/main/res/layout/activity_splash_screen.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/Acer/AndroidStudioProjects/GitHubUserSub2/app/src/main/res/layout/fragment_container.xml" value="0.22826086956521738" />
