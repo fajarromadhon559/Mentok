@@ -94,9 +94,9 @@ class MainViewModel : ViewModel() {
             }
         })
     }
-    fun getPersonFollowing(context: Context, username : String) {
+    fun getPersonFollowing(context: Context,  login : String) {
         _loading.value = true
-        val client = ApiConfig.getApiService(context).getPersonFollowing(username)
+        val client = ApiConfig.getApiService(context).getPersonFollowing(login)
         client.enqueue(object : Callback<List<PersonRespons>> {
             override fun onResponse(
                 call: Call<List<PersonRespons>>,

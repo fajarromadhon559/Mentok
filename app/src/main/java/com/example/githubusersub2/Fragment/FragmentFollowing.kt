@@ -32,7 +32,6 @@ class FragmentFollowing : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Inflate the layout for this fragment
         binding = FragmentFollowingBinding.inflate(inflater, container, false)
         return binding.root
     }

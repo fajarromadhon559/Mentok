@@ -8,6 +8,7 @@ android {
     compileSdk 32
 
     defaultConfig {
+        buildConfigField "String", "API_TOKEN", '"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"'
         applicationId "com.example.githubusersub2"
         minSdk 21
         targetSdk 32
@@ -27,7 +28,6 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
         debug {
-            buildConfigField "String", "API_TOKEN", '"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"'
             buildConfigField("String", "BASE_URL", '"https://api.github.com/"')
         }
     }

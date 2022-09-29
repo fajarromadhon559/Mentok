@@ -5,12 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:fillViewport="true"
     tools:context=".Detail.DetailActivity">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/img_user"
-        android:layout_width="122dp"
-        android:layout_height="122dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_gravity="center"
         android:layout_marginTop="12dp"
         android:elevation="4dp"
@@ -153,6 +154,7 @@
         tools:text="@string/tab_text_1" />
 
     <TextView
+        android:id="@+id/textView2"
         android:layout_width="54dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -186,13 +188,13 @@
         android:id="@+id/tv_detail_following"
         android:layout_width="54dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="200dp"
+        android:layout_marginStart="60dp"
         android:layout_marginTop="10dp"
         android:gravity="start"
         android:text="@string/tab_text_2"
         android:textColor="#000000"
         android:textSize="12sp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView2"
         app:layout_constraintTop_toBottomOf="@+id/tv_detail_repo"
         tools:text="@string/tab_text_2" />
 
