@@ -23,10 +23,11 @@ interface ApiService {
         @Path("login") login : String
     ) : Call<List<PersonRespons>>
 
-    @GET("users/{login}/following")
+    @GET("users/{login}/{item}")
     @Headers("Authorization: ${myScretKey}")
     fun getPersonFollowing(
-        @Path("login") login: String
+        @Path("login") login : String,
+        @Path("item") item : String
     ) : Call<List<PersonRespons>>
 
     @GET("search/users")

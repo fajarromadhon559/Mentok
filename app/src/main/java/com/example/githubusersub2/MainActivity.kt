@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -14,6 +15,7 @@ import com.example.githubuserapp.Adapter.OnItemClickCallback
 import com.example.githubuserapp.Response.PersonRespons
 import com.example.githubusersub2.Adapter.ListPersonAdapter
 import com.example.githubusersub2.Detail.DetailActivity
+import com.example.githubusersub2.UImode.SettingMenuDarkMode
 import com.example.githubusersub2.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -82,6 +84,20 @@ class MainActivity : AppCompatActivity() {
 
         })
         return true
+    }
+
+    override fun onOptionsItemSelected(item : MenuItem) : Boolean{
+        when(item.itemId){
+            R.id.setting_btn_activity -> {
+                val i = Intent(this, SettingMenuDarkMode::class.java)
+                startActivity(i)
+            }
+            R.id.fav_btn_activity -> {
+                val i = Intent(this, FavPerson::class.java)
+                startActivity(i)
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     private fun setPersonData(data: ArrayList<PersonRespons>) {

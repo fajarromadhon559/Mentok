@@ -40,9 +40,10 @@ class FragmentFollowing : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val person : String? = arguments?.getString(EXTRA_FRAGMENT)
+        val item : String? = arguments?.getString(EXTRA_FRAGMENT)
 
         if (savedInstanceState == null) {
-            mainViewModel.getPersonFollowing(requireActivity(), person.toString())
+            mainViewModel.getPersonFollowing(requireActivity(), person.toString(), item.toString())
         }
         initObserver()
     }
