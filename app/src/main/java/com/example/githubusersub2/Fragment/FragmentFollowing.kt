@@ -7,20 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.example.githubuserapp.API_Network.ApiConfig
 import com.example.githubuserapp.Response.PersonRespons
 import com.example.githubusersub2.Adapter.FollowerAdapter
-import com.example.githubusersub2.MainViewModel
-import com.example.githubusersub2.R
-import com.example.githubusersub2.databinding.FragmentFollowersBinding
+import com.example.githubusersub2.Main.MainViewModel
 import com.example.githubusersub2.databinding.FragmentFollowingBinding
-import com.loopj.android.http.AsyncHttpClient
-import com.loopj.android.http.AsyncHttpResponseHandler
-import org.json.JSONObject
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 
 class FragmentFollowing : Fragment() {

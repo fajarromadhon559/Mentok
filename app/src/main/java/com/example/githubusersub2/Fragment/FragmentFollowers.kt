@@ -5,21 +5,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.viewModels
-import androidx.annotation.StringRes
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.example.githubuserapp.API_Network.ApiConfig
 import com.example.githubuserapp.Response.PersonRespons
 import com.example.githubusersub2.Adapter.FollowerAdapter
-import com.example.githubusersub2.MainViewModel
-import com.example.githubusersub2.R
+import com.example.githubusersub2.Main.MainViewModel
 import com.example.githubusersub2.databinding.FragmentFollowersBinding
-import org.json.JSONObject
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class FragmentFollowers : Fragment() {
 

@@ -1,4 +1,4 @@
-package com.example.githubusersub2
+package com.example.githubusersub2.Main
 
 import android.content.Context
 import android.util.Log
@@ -6,8 +6,6 @@ import androidx.lifecycle.*
 import com.example.githubuserapp.API_Network.ApiConfig
 import com.example.githubuserapp.Response.PersonRespons
 import com.example.githubuserapp.Response.SearchRespons
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

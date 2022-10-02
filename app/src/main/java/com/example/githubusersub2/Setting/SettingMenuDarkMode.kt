@@ -9,7 +9,6 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.ViewModelProvider
-import com.example.githubusersub2.MainViewModel
 import com.example.githubusersub2.R
 import com.example.githubusersub2.SettingPreferences
 import com.example.githubusersub2.ViewModelFactory

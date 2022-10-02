@@ -1,8 +1,13 @@
 package com.example.githubusersub2.Detail
 
+import android.app.Application
+import android.content.res.ColorStateList
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
+import android.widget.Toast.makeText
 import androidx.activity.viewModels
 import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModelProvider
@@ -10,6 +15,8 @@ import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.example.githubuserapp.Adapter.SectionsPagerAdapter
 import com.example.githubuserapp.Response.PersonRespons
+import com.example.githubusersub2.Database.FavoriteEntity
+import com.example.githubusersub2.Favorite.FavoriteViewModel
 import com.example.githubusersub2.Fragment.FragmentFollowers
 import com.example.githubusersub2.Fragment.FragmentFollowers.Companion.EXTRA_FRAGMENT
 import com.example.githubusersub2.Fragment.FragmentFollowing
@@ -22,11 +29,16 @@ class DetailActivity : AppCompatActivity() {
     private lateinit var binding : ActivityDetailBinding
     private val detailViewModel by viewModels<DetailViewModel>()
 
+    private var isFavorite = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        val username = intent.getStringExtra(EXTRA_PERSON)
+        username?.let {
+            clickFavBtn(it)
+        }
         viewPager()
         dataSet()
     }
@@ -76,7 +88,41 @@ class DetailActivity : AppCompatActivity() {
                 binding.tvDetailRepo.text = it.publicRepo
             }
         })
+    }
 
+    private fun clickFavBtn(username : String){
+        val favorite = FavoriteEntity()
+        val person = intent.getParcelableExtra<PersonRespons>(KEY_PERSON)
+        favorite.login = username
+        favorite.id = intent.getIntExtra(KEY_ID, 0)
+        favorite.avatar_url = person?.avatarUrl
+
+        detailViewModel.getFavoriteById(favorite.id!!)
+            .observe(this@DetailActivity, { favList ->
+                isFavorite = favList.isNotEmpty()
+
+                binding.btnFav.imageTintList = if(favList.isEmpty()) {
+                    ColorStateList.valueOf(Color.rgb(255, 255, 255))
+                } else {
+                    ColorStateList.valueOf(Color.rgb(255, 84, 105))
+                }
+            })
+
+        with(binding){
+            btnFav.apply {
+                setOnClickListener{
+                    if(isFavorite){
+                        detailViewModel.delete(favorite)
+                        makeText(this@DetailActivity,
+                            "${favorite.login} telah terhapus dari data person favorite", Toast.LENGTH_LONG).show()
+                    }else{
+                        detailViewModel.insert(favorite)
+                        makeText(this@DetailActivity,
+                            "${favorite.login} telah ditambahkan ke data person favorite", Toast.LENGTH_LONG).show()
+                    }
+                }
+            }
+        }
     }
 
     private fun showProgresBar(isLoading : Boolean){
@@ -88,6 +134,8 @@ class DetailActivity : AppCompatActivity() {
     }
 
     companion object {
-        const val EXTRA_PERSON = "extra_person"
+        const val EXTRA_PERSON = "username"
+        const val KEY_PERSON = "person"
+        const val KEY_ID = "extra id"
     }
 }

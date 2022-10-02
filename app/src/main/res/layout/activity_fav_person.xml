@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FavPerson">
+    tools:context=".Favorite.FavPerson">
 
     <TextView
         android:layout_width="wrap_content"
@@ -32,6 +32,7 @@
         android:id="@+id/rv_fav_person"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        tools:listitem="@layout/item_row_person"
         android:layout_marginStart="1dp"
         android:layout_marginTop="1dp"
         android:layout_marginEnd="1dp"

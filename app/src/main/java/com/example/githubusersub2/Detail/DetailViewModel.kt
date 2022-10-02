@@ -1,5 +1,6 @@
 package com.example.githubusersub2.Detail
 
+import android.app.Application
 import android.content.Context
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -7,11 +8,15 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.githubuserapp.API_Network.ApiConfig
 import com.example.githubuserapp.Response.PersonRespons
+import com.example.githubusersub2.Database.FavoriteEntity
+import com.example.githubusersub2.Repository.FavoriteRepository
 import kotlinx.coroutines.Job
 import retrofit2.Call
 import retrofit2.Response
 
-class DetailViewModel : ViewModel() {
+class DetailViewModel(app : Application) : ViewModel() {
+    private val mFavRepository: FavoriteRepository = FavoriteRepository(app)
+
     private val _detailPerson = MutableLiveData<PersonRespons>()
     val detailPerson : LiveData<PersonRespons> = _detailPerson
 
@@ -20,6 +25,18 @@ class DetailViewModel : ViewModel() {
 
     private val _detailDataFailed = MutableLiveData<Boolean>()
     val detailDataFailed : LiveData<Boolean> = _detailDataFailed
+
+    fun insert(favEntity : FavoriteEntity){
+        mFavRepository.insert(favEntity)
+    }
+
+    fun delete(favEntity: FavoriteEntity) {
+        mFavRepository.delete(favEntity)
+    }
+
+    fun getFavoriteById(id: Int): LiveData<List<FavoriteEntity>> {
+        return mFavRepository.getPersonFavoriteById(id)
+    }
 
     fun SetDetailPerson(context: Context, username : String){
         _detailLoading.value = true
