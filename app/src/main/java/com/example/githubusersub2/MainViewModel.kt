@@ -2,18 +2,17 @@ package com.example.githubusersub2
 
 import android.content.Context
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
 import com.example.githubuserapp.API_Network.ApiConfig
 import com.example.githubuserapp.Response.PersonRespons
 import com.example.githubuserapp.Response.SearchRespons
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class MainViewModel : ViewModel() {
+class MainViewModel: ViewModel() {
 
     private var _person = MutableLiveData<ArrayList<PersonRespons>?>()
     var person: LiveData<ArrayList<PersonRespons>?> = _person

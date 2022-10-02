@@ -8,7 +8,7 @@ android {
     compileSdk 32
 
     defaultConfig {
-        buildConfigField "String", "API_TOKEN", '"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"'
+        buildConfigField("String", "API_TOKEN", '"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"')
         applicationId "com.example.githubusersub2"
         minSdk 21
         targetSdk 32

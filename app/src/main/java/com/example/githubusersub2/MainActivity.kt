@@ -15,7 +15,7 @@ import com.example.githubuserapp.Adapter.OnItemClickCallback
 import com.example.githubuserapp.Response.PersonRespons
 import com.example.githubusersub2.Adapter.ListPersonAdapter
 import com.example.githubusersub2.Detail.DetailActivity
-import com.example.githubusersub2.UImode.SettingMenuDarkMode
+import com.example.githubusersub2.Setting.SettingMenuDarkMode
 import com.example.githubusersub2.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
