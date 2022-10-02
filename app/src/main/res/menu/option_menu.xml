@@ -8,4 +8,18 @@
         android:title="@string/search"
         app:actionViewClass="androidx.appcompat.widget.SearchView"
         app:showAsAction="collapseActionView|always" />
+
+    <item
+        android:id="@+id/fav_btn_activity"
+        android:icon="@drawable/ic_baseline_favorite_24"
+        android:title="@string/fav_person"
+        app:showAsAction="ifRoom"
+        />
+
+    <item
+        android:id="@+id/setting_btn_activity"
+        android:icon="@drawable/ic_baseline_settings_24"
+        android:title="@string/fav_person"
+        app:showAsAction="ifRoom"
+        />
 </menu>
