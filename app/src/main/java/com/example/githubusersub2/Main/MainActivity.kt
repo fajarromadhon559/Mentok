@@ -1,4 +1,4 @@
-package com.example.githubusersub2
+package com.example.githubusersub2.Main
 
 import android.app.SearchManager
 import android.content.Context
@@ -15,6 +15,8 @@ import com.example.githubuserapp.Adapter.OnItemClickCallback
 import com.example.githubuserapp.Response.PersonRespons
 import com.example.githubusersub2.Adapter.ListPersonAdapter
 import com.example.githubusersub2.Detail.DetailActivity
+import com.example.githubusersub2.Favorite.FavPerson
+import com.example.githubusersub2.R
 import com.example.githubusersub2.Setting.SettingMenuDarkMode
 import com.example.githubusersub2.databinding.ActivityMainBinding
 
