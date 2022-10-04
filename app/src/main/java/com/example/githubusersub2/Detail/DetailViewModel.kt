@@ -16,7 +16,6 @@ import retrofit2.Response
 
 class DetailViewModel(app : Application) : ViewModel() {
     private val mFavRepository: FavoriteRepository = FavoriteRepository(app)
-
     private val _detailPerson = MutableLiveData<PersonRespons>()
     val detailPerson : LiveData<PersonRespons> = _detailPerson
 

@@ -14,7 +14,7 @@ class FavoriteRepository (application: Application) {
 
     init {
         val db = FavoriteRoomDatabase.getDatabase(application)
-        favDao = db.favDao()
+        favDao = db!!.favDao()
     }
 
     fun getAllFavorites(): LiveData<List<FavoriteEntity>> = favDao.getAllFavorite()
