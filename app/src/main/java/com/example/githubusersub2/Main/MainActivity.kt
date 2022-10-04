@@ -114,7 +114,7 @@ class MainActivity : AppCompatActivity() {
             rvAdapter.setOnItemClickCallback(object : OnItemClickCallback {
                 override fun onItemClicked(person: PersonRespons) {
                     val i = Intent(this@MainActivity, DetailActivity::class.java)
-                    i.putExtra(DetailActivity.EXTRA_PERSON, person.login)
+                    i.putExtra(DetailActivity.EXTRA_PERSON, person)
                     startActivity(i)
                 }
             })

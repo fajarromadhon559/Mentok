@@ -24,13 +24,16 @@ class DetailActivity : AppCompatActivity() {
 
     private var isFavorite = false
 
+    private val extraPerson : PersonRespons? by lazy {
+        intent.extras?.getParcelable(EXTRA_PERSON)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
         detailViewModel.initContext(this)
-        val username = intent.getStringExtra(EXTRA_PERSON)
-        username?.let {
+        extraPerson?.login?.let {
             clickFavBtn(it)
         }
         viewPager()
@@ -39,17 +42,8 @@ class DetailActivity : AppCompatActivity() {
 
     private fun viewPager(){
 
-        val sectionsPagerAdapter = SectionsPagerAdapter(this, supportFragmentManager)
-
-        val fragmentFollowers = FragmentFollowers()
-        val fragmentFollowing = FragmentFollowing()
-
-        val person = intent.extras?.getParcelable<PersonRespons>(EXTRA_PERSON)
-        val bundle = Bundle()
-        bundle.putString(EXTRA_FRAGMENT, person?.login)
-
-        fragmentFollowers.arguments = bundle
-        fragmentFollowing.arguments = bundle
+        val sectionsPagerAdapter =
+            extraPerson?.let { SectionsPagerAdapter(this, supportFragmentManager, it) }
 
         binding.viewPager.adapter = sectionsPagerAdapter
         binding.tabs.setupWithViewPager(binding.viewPager)
