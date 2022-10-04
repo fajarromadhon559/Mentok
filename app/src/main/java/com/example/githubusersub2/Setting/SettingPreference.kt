@@ -1,4 +1,4 @@
-package com.example.githubusersub2
+package com.example.githubusersub2.Setting
 
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences

@@ -6,9 +6,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.example.githubuserapp.Adapter.OnItemClickCallback
-import com.example.githubuserapp.Response.PersonRespons
 import com.example.githubusersub2.R
+import com.example.githubusersub2.Response.PersonRespons
 import com.example.githubusersub2.databinding.ItemRowFollowBinding
 
 class FollowerAdapter : RecyclerView.Adapter<FollowerAdapter.MyViewHolder>(){

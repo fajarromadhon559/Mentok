@@ -1,6 +1,6 @@
-package com.example.githubuserapp.Adapter
+package com.example.githubusersub2.Adapter
 
-import com.example.githubuserapp.Response.PersonRespons
+import com.example.githubusersub2.Response.PersonRespons
 
 interface OnItemClickCallback {
     fun onItemClicked(person : PersonRespons)

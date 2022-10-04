@@ -1,15 +1,15 @@
 package com.example.githubusersub2.Fragment
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.githubuserapp.Response.PersonRespons
 import com.example.githubusersub2.Adapter.FollowerAdapter
 import com.example.githubusersub2.Main.MainViewModel
+import com.example.githubusersub2.Response.PersonRespons
 import com.example.githubusersub2.databinding.FragmentFollowingBinding
 
 

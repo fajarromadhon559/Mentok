@@ -1,4 +1,4 @@
-package com.example.githubuserapp.Adapter
+package com.example.githubusersub2.Adapter
 
 import android.content.Context
 import androidx.annotation.StringRes

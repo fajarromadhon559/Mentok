@@ -1,16 +1,15 @@
 package com.example.githubusersub2.Setting
 
 import android.content.Context
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.CompoundButton
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.ViewModelProvider
 import com.example.githubusersub2.R
-import com.example.githubusersub2.SettingPreferences
 import com.example.githubusersub2.ViewModelFactory
 import com.google.android.material.switchmaterial.SwitchMaterial
 
