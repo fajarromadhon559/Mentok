@@ -1,42 +1,39 @@
 package com.example.githubusersub2.Detail
 
-import android.app.Application
 import android.content.res.ColorStateList
 import android.graphics.Color
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import android.widget.Toast.makeText
 import androidx.activity.viewModels
-import androidx.annotation.StringRes
-import androidx.lifecycle.ViewModelProvider
-import androidx.viewpager2.widget.ViewPager2
+import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
-import com.example.githubuserapp.Adapter.SectionsPagerAdapter
-import com.example.githubuserapp.Response.PersonRespons
+import com.example.githubusersub2.Adapter.SectionsPagerAdapter
 import com.example.githubusersub2.Database.FavoriteEntity
-import com.example.githubusersub2.Favorite.FavoriteViewModel
 import com.example.githubusersub2.Fragment.FragmentFollowers
 import com.example.githubusersub2.Fragment.FragmentFollowers.Companion.EXTRA_FRAGMENT
 import com.example.githubusersub2.Fragment.FragmentFollowing
-import com.example.githubusersub2.R
+import com.example.githubusersub2.Response.PersonRespons
 import com.example.githubusersub2.databinding.ActivityDetailBinding
-import com.google.android.material.tabs.TabLayout
-import com.google.android.material.tabs.TabLayoutMediator
 
 class DetailActivity : AppCompatActivity() {
     private lateinit var binding : ActivityDetailBinding
+
     private val detailViewModel by viewModels<DetailViewModel>()
 
     private var isFavorite = false
+
+    private val extraPerson : PersonRespons? by lazy {
+        intent.extras?.getParcelable(EXTRA_PERSON)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        val username = intent.getStringExtra(EXTRA_PERSON)
-        username?.let {
+        detailViewModel.initContext(this)
+        extraPerson?.login?.let {
             clickFavBtn(it)
         }
         viewPager()
@@ -45,17 +42,8 @@ class DetailActivity : AppCompatActivity() {
 
     private fun viewPager(){
 
-        val sectionsPagerAdapter = SectionsPagerAdapter(this, supportFragmentManager)
-
-        val fragmentFollowers = FragmentFollowers()
-        val fragmentFollowing = FragmentFollowing()
-
-        val person = intent.extras?.getParcelable<PersonRespons>(EXTRA_PERSON)
-        val bundle = Bundle()
-        bundle.putString(EXTRA_FRAGMENT, person?.login)
-
-        fragmentFollowers.arguments = bundle
-        fragmentFollowing.arguments = bundle
+        val sectionsPagerAdapter =
+            extraPerson?.let { SectionsPagerAdapter(this, supportFragmentManager, it) }
 
         binding.viewPager.adapter = sectionsPagerAdapter
         binding.tabs.setupWithViewPager(binding.viewPager)
@@ -69,12 +57,12 @@ class DetailActivity : AppCompatActivity() {
         if(person != null){
             detailViewModel.SetDetailPerson(this, person.login!!)
         }
-        detailViewModel.detailLoading.observe(this, {
+        detailViewModel.detailLoading.observe(this) {
             showProgresBar(it)
-        })
+        }
 
-        detailViewModel.detailPerson.observe(this, {
-            if (it != null){
+        detailViewModel.detailPerson.observe(this) {
+            if (it != null) {
                 Glide.with(this@DetailActivity)
                     .load(it.avatarUrl)
                     .centerCrop()
@@ -87,7 +75,7 @@ class DetailActivity : AppCompatActivity() {
                 binding.tvDetailLocation.text = it.location
                 binding.tvDetailRepo.text = it.publicRepo
             }
-        })
+        }
     }
 
     private fun clickFavBtn(username : String){
@@ -98,15 +86,15 @@ class DetailActivity : AppCompatActivity() {
         favorite.avatar_url = person?.avatarUrl
 
         detailViewModel.getFavoriteById(favorite.id!!)
-            .observe(this@DetailActivity, { favList ->
+            .observe(this@DetailActivity) { favList ->
                 isFavorite = favList.isNotEmpty()
 
-                binding.btnFav.imageTintList = if(favList.isEmpty()) {
+                binding.btnFav.imageTintList = if (favList.isEmpty()) {
                     ColorStateList.valueOf(Color.rgb(255, 255, 255))
                 } else {
                     ColorStateList.valueOf(Color.rgb(255, 84, 105))
                 }
-            })
+            }
 
         with(binding){
             btnFav.apply {

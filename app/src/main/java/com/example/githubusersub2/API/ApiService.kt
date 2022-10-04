@@ -1,9 +1,12 @@
-package com.example.githubuserapp.API_Network
-import com.example.githubuserapp.Response.PersonRespons
-import com.example.githubuserapp.Response.SearchRespons
+package com.example.githubusersub2.API
 import com.example.githubusersub2.BuildConfig
+import com.example.githubusersub2.Response.PersonRespons
+import com.example.githubusersub2.Response.SearchRespons
 import retrofit2.Call
-import retrofit2.http.*
+import retrofit2.http.GET
+import retrofit2.http.Headers
+import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface ApiService {
 

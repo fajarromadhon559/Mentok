@@ -1,9 +1,8 @@
-package com.example.githubuserapp.API_Network
+package com.example.githubusersub2.API
 
 import android.content.Context
 import com.chuckerteam.chucker.api.ChuckerCollector
 import com.chuckerteam.chucker.api.ChuckerInterceptor
-import com.example.githubusersub2.Fragment.FragmentFollowers
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit

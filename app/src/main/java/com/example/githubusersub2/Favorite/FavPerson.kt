@@ -1,16 +1,14 @@
 package com.example.githubusersub2.Favorite
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.githubusersub2.Database.FavoriteEntity
 import com.example.githubusersub2.Detail.DetailActivity
-import com.example.githubusersub2.R
 import com.example.githubusersub2.databinding.ActivityFavPersonBinding
 
 class FavPerson : AppCompatActivity() {

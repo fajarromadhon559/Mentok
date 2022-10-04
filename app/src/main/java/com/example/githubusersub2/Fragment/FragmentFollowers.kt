@@ -1,15 +1,18 @@
 package com.example.githubusersub2.Fragment
 
+import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.githubuserapp.Response.PersonRespons
 import com.example.githubusersub2.Adapter.FollowerAdapter
+import com.example.githubusersub2.Adapter.OnItemClickCallback
+import com.example.githubusersub2.Detail.DetailActivity
 import com.example.githubusersub2.Main.MainViewModel
+import com.example.githubusersub2.Response.PersonRespons
 import com.example.githubusersub2.databinding.FragmentFollowersBinding
 
 class FragmentFollowers : Fragment() {
@@ -62,7 +65,14 @@ class FragmentFollowers : Fragment() {
             val linearLayoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             layoutManager = linearLayoutManager
             setHasFixedSize(true)
-            val rvAdapter = FollowerAdapter()
+            val rvAdapter = FollowerAdapter(object : OnItemClickCallback {
+                override fun onItemClicked(person: PersonRespons) {
+                    val i = Intent(requireContext(), DetailActivity::class.java)
+                    i.putExtra(DetailActivity.EXTRA_PERSON, person)
+                    startActivity(i)
+                }
+
+            })
             rvAdapter.addDataList(data)
             adapter = rvAdapter
         }

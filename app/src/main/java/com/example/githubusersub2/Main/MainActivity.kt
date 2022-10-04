@@ -11,12 +11,12 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.githubuserapp.Adapter.OnItemClickCallback
-import com.example.githubuserapp.Response.PersonRespons
 import com.example.githubusersub2.Adapter.ListPersonAdapter
+import com.example.githubusersub2.Adapter.OnItemClickCallback
 import com.example.githubusersub2.Detail.DetailActivity
 import com.example.githubusersub2.Favorite.FavPerson
 import com.example.githubusersub2.R
+import com.example.githubusersub2.Response.PersonRespons
 import com.example.githubusersub2.Setting.SettingMenuDarkMode
 import com.example.githubusersub2.databinding.ActivityMainBinding
 

@@ -2,10 +2,12 @@ package com.example.githubusersub2.Main
 
 import android.content.Context
 import android.util.Log
-import androidx.lifecycle.*
-import com.example.githubuserapp.API_Network.ApiConfig
-import com.example.githubuserapp.Response.PersonRespons
-import com.example.githubuserapp.Response.SearchRespons
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import com.example.githubusersub2.API.ApiConfig
+import com.example.githubusersub2.Response.PersonRespons
+import com.example.githubusersub2.Response.SearchRespons
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
