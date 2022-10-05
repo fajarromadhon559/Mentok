@@ -38,7 +38,7 @@ class FavPerson : AppCompatActivity() {
                 override fun onItemClicked(favEntitiy : FavoriteEntity){
                     val i = Intent(this@FavPerson, DetailActivity::class.java)
                     i.putExtra(DetailActivity.EXTRA_PERSON, favEntitiy.login)
-                    i.putExtra(DetailActivity.KEY_ID, favEntitiy.id)
+                    i.putExtra(DetailActivity.EXTRA_PERSON, favEntitiy.id)
                     startActivity(i)
                 }
             })

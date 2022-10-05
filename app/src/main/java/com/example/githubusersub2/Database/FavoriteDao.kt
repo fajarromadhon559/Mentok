@@ -5,7 +5,7 @@ import androidx.room.*
 
 @Dao
 interface FavoriteDao {
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(fav: FavoriteEntity)
 
     @Delete

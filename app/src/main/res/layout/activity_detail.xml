@@ -226,7 +226,7 @@
         android:focusable="true"
         app:fabSize="normal"
         android:layout_marginBottom="32dp"
-        android:src="@drawable/ic_fav_border_white_24dp"
+        android:src="@drawable/ic_baseline_favorite_24"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
