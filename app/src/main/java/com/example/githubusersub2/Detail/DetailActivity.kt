@@ -86,7 +86,7 @@ class   DetailActivity : AppCompatActivity() {
 
     private fun clickFavBtn(username : String){
         val favorite = FavoriteEntity()
-        val person = intent.getParcelableExtra<PersonRespons>(EXTRA_PERSON)
+        val person = intent.extras?.getParcelable<PersonRespons>(KEY_PERSON)
         favorite.login = username
         favorite.id = intent.getIntExtra(KEY_ID, 0)
         favorite.avatar_url = person?.avatarUrl

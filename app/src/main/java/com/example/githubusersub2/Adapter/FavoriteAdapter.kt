@@ -1,13 +1,16 @@
-package com.example.githubusersub2.Favorite
+package com.example.githubusersub2.Adapter
 
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.githubusersub2.Database.FavoriteEntity
 import com.example.githubusersub2.Detail.DetailActivity
+import com.example.githubusersub2.databinding.ActivityFavPersonBinding
+import com.example.githubusersub2.databinding.ItemRowFollowBinding
 import com.example.githubusersub2.databinding.ItemRowPersonBinding
 
 class FavoriteAdapter : RecyclerView.Adapter<FavoriteAdapter.MyViewHolder>() {
@@ -15,7 +18,7 @@ class FavoriteAdapter : RecyclerView.Adapter<FavoriteAdapter.MyViewHolder>() {
     private val personFavorite = ArrayList<FavoriteEntity>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-       val itemView = ItemRowPersonBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val itemView = ItemRowPersonBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return MyViewHolder(itemView)
     }
 
@@ -60,5 +63,4 @@ class FavoriteAdapter : RecyclerView.Adapter<FavoriteAdapter.MyViewHolder>() {
     interface OnItemClickCallback {
         fun onItemClicked(favEntity: FavoriteEntity)
     }
-
 }

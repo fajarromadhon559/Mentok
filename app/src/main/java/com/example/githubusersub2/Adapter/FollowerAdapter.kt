@@ -33,7 +33,7 @@ class FollowerAdapter(private val onItemClickCallback: OnItemClickCallback) : Re
 
     class MyViewHolder(private var binding: ItemRowFollowBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(personRespons: PersonRespons){
-            binding.tvItemNameFollws.text = personRespons.login
+            binding.tvItemName.text = personRespons.login
             Glide.with(binding.root)
                 .load(personRespons.avatarUrl)
                 .apply (
@@ -41,7 +41,7 @@ class FollowerAdapter(private val onItemClickCallback: OnItemClickCallback) : Re
                         .error(R.drawable.ic_baseline_broken_image_24)
                 )
                 .circleCrop()
-                .into(binding.imgItemPhotoFollows)
+                .into(binding.imgItemPhoto)
         }
     }
 

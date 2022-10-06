@@ -6,6 +6,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class PersonRespons(
+    var id: Int? = 0,
     val name: String?,
     val login: String?,
     @field:SerializedName("avatar_url")

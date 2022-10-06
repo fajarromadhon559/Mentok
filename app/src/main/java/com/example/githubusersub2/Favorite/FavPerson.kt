@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.githubusersub2.Adapter.FavoriteAdapter
 import com.example.githubusersub2.Database.FavoriteEntity
 import com.example.githubusersub2.Detail.DetailActivity
 import com.example.githubusersub2.databinding.ActivityFavPersonBinding

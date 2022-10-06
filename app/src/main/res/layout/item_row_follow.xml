@@ -18,7 +18,7 @@
         android:padding="8dp">
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/img_item_photo_follows"
+            android:id="@+id/img_item_photo"
             android:layout_width="96dp"
             android:layout_height="84dp"
             android:layout_marginStart="8dp"
@@ -30,7 +30,7 @@
             tools:src="@tools:sample/avatars" />
 
         <TextView
-            android:id="@+id/tv_item_name_follws"
+            android:id="@+id/tv_item_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
@@ -39,8 +39,8 @@
             android:textSize="24sp"
             android:textStyle="bold"
             android:textColor="@color/black"
-            card_view:layout_constraintBottom_toBottomOf="@+id/img_item_photo_follows"
-            card_view:layout_constraintStart_toEndOf="@+id/img_item_photo_follows"
+            card_view:layout_constraintBottom_toBottomOf="@+id/img_item_photo"
+            card_view:layout_constraintStart_toEndOf="@+id/img_item_photo"
             card_view:layout_constraintTop_toTopOf="parent"
             tools:text="@string/Name" />
     </androidx.constraintlayout.widget.ConstraintLayout>
