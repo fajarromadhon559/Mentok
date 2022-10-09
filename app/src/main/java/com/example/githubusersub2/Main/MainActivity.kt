@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.githubusersub2.Adapter.ListPersonAdapter
 import com.example.githubusersub2.Adapter.OnItemClickCallback
 import com.example.githubusersub2.Detail.DetailActivity
-import com.example.githubusersub2.Favorite.FavPerson
+import com.example.githubusersub2.Favorite.FavPersonActivity
 import com.example.githubusersub2.R
 import com.example.githubusersub2.Response.PersonRespons
 import com.example.githubusersub2.Setting.SettingMenuDarkMode
@@ -95,7 +95,7 @@ class MainActivity : AppCompatActivity() {
                 startActivity(i)
             }
             R.id.fav_btn_activity -> {
-                val i = Intent(this, FavPerson::class.java)
+                val i = Intent(this, FavPersonActivity::class.java)
                 startActivity(i)
             }
         }
