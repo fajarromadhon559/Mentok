@@ -38,7 +38,6 @@
             android:maxLines="5"
             android:textSize="24sp"
             android:textStyle="bold"
-            android:textColor="@color/black"
             card_view:layout_constraintBottom_toBottomOf="@+id/img_item_photo"
             card_view:layout_constraintStart_toEndOf="@+id/img_item_photo"
             card_view:layout_constraintTop_toTopOf="parent"
