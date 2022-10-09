@@ -44,7 +44,7 @@ class DetailViewModel : ViewModel() {
         return mFavRepository.getPersonFavoriteById(id)
     }
 
-    fun SetDetailPerson(context: Context, username : String){
+    fun getDetailPerson(context: Context, username : String){
         _detailLoading.value = true
         val client = ApiConfig.getApiService(context).getPersonDetail(username)
 

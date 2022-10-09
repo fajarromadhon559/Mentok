@@ -19,7 +19,7 @@
             android:name=".Setting.SettingMenuDarkMode"
             android:exported="false" />
         <activity
-            android:name=".Favorite.FavPerson"
+            android:name=".Favorite.FavPersonActivity"
             android:exported="false" />
         <activity
             android:name=".SplashScreen"
